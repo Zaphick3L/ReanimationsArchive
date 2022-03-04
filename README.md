@@ -6,6 +6,8 @@ Any new reanimate i will work on will not be here because i'll only make one and
 # Any reanimations that were made in 2022> or Winter 2021 Are no longer using anyones code, they are 100% created by me... ONLY ME.
 
 Those people I am gonna credit for most of stuff:
+# phere#4106
+  - LookVector Velocity Addon on 3/4/2022 Reanimate
 # Pararell_X:
   - The R15 Align Values i used back in 2021.
 # Syntax_64 / Foreach / Mizt
