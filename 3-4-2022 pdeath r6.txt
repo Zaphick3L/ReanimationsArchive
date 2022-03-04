@@ -1,0 +1,77 @@
+if workspace[game.Players.LocalPlayer.Name]:FindFirstChild("Raw") then
+ game:GetService("StarterGui"):SetCore("SendNotification", {
+	Title = "already reanimated",
+	Text = ""
+})
+return
+end
+game.Players.LocalPlayer["Character"]:FindFirstChildOfClass("Humanoid").BreakJointsOnDeath = false
+spawn(function()
+	game.Players.LocalPlayer["Character"] = nil
+	game.Players.LocalPlayer["Character"] = workspace[game.Players.LocalPlayer.Name]
+end)
+wait(game.Players.RespawnTime + 0.7)
+game.Players.LocalPlayer["Character"]:FindFirstChildOfClass("Humanoid").Health = 0
+game.Players.LocalPlayer["Character"]:FindFirstChildOfClass("Humanoid").BreakJointsOnDeath = false
+
+workspace[game.Players.LocalPlayer.Name].Archivable = true
+local cln = workspace[game.Players.LocalPlayer.Name]:Clone()
+cln.Name = "Raw"; cln.Parent = workspace[game.Players.LocalPlayer.Name]
+workspace[game.Players.LocalPlayer.Name].Animate.Disabled = true
+for i,v in pairs(cln:GetDescendants()) do
+	if v:IsA("BasePart") then v.Transparency = 1 end
+end
+cln.Head.face.Transparency = 1
+_G.reanim = game:GetService("RunService").Stepped:Connect(function()
+	if workspace[game.Players.LocalPlayer.Name]:FindFirstChildOfClass("Humanoid").Jump == true then
+		cln:FindFirstChildOfClass("Humanoid").Jump = true 
+		cln:FindFirstChildOfClass("Humanoid").Sit = false 
+	end
+	for i,v in pairs(workspace[game.Players.LocalPlayer.Name]:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks()) do
+		v:Stop()
+	end
+	for i,v in pairs(workspace[game.Players.LocalPlayer.Name]:GetDescendants()) do
+		if v:IsA("BasePart") then v.CanCollide = false end
+	end
+	cln:FindFirstChildOfClass("Humanoid"):Move(workspace[game.Players.LocalPlayer.Name]:FindFirstChildOfClass("Humanoid").MoveDirection,false)
+end)
+for i,v in pairs(workspace[game.Players.LocalPlayer.Name].Torso:GetChildren()) do
+	if v:IsA("Motor6D") then v:Destroy() end
+end
+for i,v in pairs(workspace[game.Players.LocalPlayer.Name]:GetChildren()) do
+	if v:IsA("Accessory") then v.Handle:BreakJoints() end
+end
+_G.reanim2 = game:GetService("RunService").Heartbeat:Connect(function()
+	for i,v in pairs(workspace[game.Players.LocalPlayer.Name]:GetChildren()) do
+		if v:IsA("BasePart") then v.Velocity = Vector3.new(0,30,0) + cln:FindFirstChild("Torso").CFrame.LookVector * 10
+		elseif v:IsA("Accessory") then v.Handle.Velocity = Vector3.new(0,30,0) + cln:FindFirstChild("Torso").CFrame.LookVector * 10 end
+		
+		if v:IsA("Accessory") then
+			v.Handle.CFrame = cln[v.Name].Handle.CFrame 
+		end
+	end
+	workspace[game.Players.LocalPlayer.Name].Torso.CFrame = cln.Torso.CFrame
+	workspace[game.Players.LocalPlayer.Name].Head.CFrame = cln.Head.CFrame
+	workspace[game.Players.LocalPlayer.Name]["Right Arm"].CFrame = cln["Right Arm"].CFrame
+	workspace[game.Players.LocalPlayer.Name]["Left Arm"].CFrame = cln["Left Arm"].CFrame
+	workspace[game.Players.LocalPlayer.Name]["Right Leg"].CFrame = cln["Right Leg"].CFrame
+	workspace[game.Players.LocalPlayer.Name]["Left Leg"].CFrame = cln["Left Leg"].CFrame
+end)
+local resetbind = Instance.new("BindableEvent", workspace[game.Players.LocalPlayer.Name])
+resetbind.Event:Connect(function()
+	game.Players.LocalPlayer.Character = cln
+	game.Players.LocalPlayer.Character:Destroy()
+	game.Players.LocalPlayer.Character = workspace[game.Players.LocalPlayer.Name]
+	_G.reanim2:Disconnect()
+	_G.reanim:Disconnect()
+	resetbind:Destroy()
+	task.wait()
+	game:GetService("StarterGui"):SetCore("ResetButtonCallback", true)
+end)
+game:GetService("StarterGui"):SetCore("ResetButtonCallback", resetbind)
+workspace:FindFirstChildOfClass("Camera").CameraSubject = cln:FindFirstChildOfClass("Humanoid")
+game:GetService("StarterGui"):SetCore("SendNotification", {
+	Title = "Reanimated",
+	Text = "ok"
+})
+
