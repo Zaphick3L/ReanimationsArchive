@@ -15,5 +15,6 @@ Those people I am gonna credit for most of stuff:
   - Some of the reanimations that use mizt stuff (align, reset).
 # TypicalUsername
   - His mizt reanimate edit i used for Gelatek Hub V1 Reanimate 
-
+# Bedra
+  - That old jitterless method used before corner clip glitch patch.
 # Please don't fork this git as well for no reason or skidding reasons.
