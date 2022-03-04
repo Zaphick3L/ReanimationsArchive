@@ -1,4 +1,25 @@
-	if game.Players.LocalPlayer.Character:findFirstChild("Reanimate") then
+function AlignObject(Part0,Part1,Position,Rotate)
+	local AlignPosition = Instance.new("AlignPosition", Part0)
+	local AlignOrientation = Instance.new("AlignOrientation", Part0)
+	local Attachment1 = Instance.new("Attachment", Part0)
+	local Attachment2 = Instance.new("Attachment", Part1)
+	AlignPosition.Attachment0 = Attachment1
+	AlignOrientation.Attachment0 = Attachment1
+	AlignPosition.Attachment1 = Attachment2
+	AlignOrientation.Attachment1 = Attachment2
+	AlignPosition.Responsiveness = 300
+	AlignPosition.MaxForce = 5e9
+	AlignOrientation.MaxTorque = 5e9
+	AlignOrientation.Responsiveness = 300
+	AlignOrientation.ReactionTorqueEnabled = false
+	Attachment1.Position = Position or Vector3.new(0,0,0)
+	Attachment1.Orientation = Rotate or Vector3.new(0,0,0)
+	game:GetService("RunService").Heartbeat:Connect(function() 
+		Part0.Velocity = Vector3.new(30,0,0)
+	end)
+end
+
+if game.Players.LocalPlayer.Character:findFirstChild("Reanimate") then
 		Message("Project: Cat -  You are already reanimated!")
 		return
 	end
