@@ -2,6 +2,7 @@
 Yes, that's right...
 I decided to make all my reanimates i edited/made/modifed publicly.
 Any new reanimate i will work on will not be here because i'll only make one and stick to it.
+# You can use reanimations if you want as long you are gonna give proper credits!
 
 # Any reanimations that were made in 2022> or Winter 2021 Are no longer using anyones code, they are 100% created by me... ONLY ME.
 
